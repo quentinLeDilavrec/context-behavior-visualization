@@ -1,0 +1,155 @@
+/* @font-face {
+  font-family: "MyFont";
+  src: url('Lato-Regular.ttf') format("truetype");
+} */
+html,
+body {
+  height: 100%;
+  font-family: "MyFont", "Open Sans", Segoe UI light, Verdana, Tahoma, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+}
+#chart {
+  height: 99%;
+  float: left;
+  /* position: absolute; */
+  margin: auto auto;
+  width: -moz-calc(80% - 45px);
+  width: -webkit-calc(80% - 45px);
+  width: calc(80% - 45px);
+}
+a {
+  text-decoration: none;
+color: #F60;
+}
+a:hover {
+  text-decoration: underline;
+color: #F60;
+}
+.pagetitle {
+  height: 30px;
+  color: #F60;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  font-weight: bold;
+  font-style: oblique
+}
+.node rect {
+  cursor: move;
+  fill-opacity: .9;
+  shape-rendering: crispEdges
+}
+.node text {
+  font-size: 20px;
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff
+}
+.link {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .3;
+}
+.link:hover {
+  stroke-opacity: .7;
+}
+#titlebar {
+width: -moz-calc(80% - 90px);
+width: -webkit-calc(80% - 90px);
+width: calc(80% - 90px);
+height: 30px;
+  border-bottom: solid;
+  border-color: #EEE;
+  padding-bottom: 5px;
+  margin-left: 40px;
+  margin-top: 5px;
+  position: fixed;
+  z-index: 50;
+}
+#titlebar-right {
+  right: -moz-calc(20% + 50px);
+  right: -webkit-calc(20% + 50px);
+  right: calc(20% + 50px);
+  height: 30px;
+  padding-bottom: 5px;
+  margin-left: 40px;
+  margin-top: 5px;
+  position: fixed;
+  z-index: 50;
+}
+.dragdealer {
+  height: 30px;
+  background: #EEE;
+  z-index: 50;
+}
+.dragdealer .handle {
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+.dragdealer .red-bar {
+  width: 100px;
+  height: 30px;
+  background: #F80;
+  color: #FFF;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  font-weight: bold;
+  font-style: oblique
+}
+.dragdealer .red-bar:hover {
+  background: #F60
+}
+.dragdealer .orange-bar {
+  width: 25px;
+  height: 18px;
+  background: #F80;
+  color: #FFF;
+  font-size: 18px;
+  line-height: 16px;
+  text-align: center;
+  font-weight: bold;
+}
+.dragdealer .orange-bar:hover {
+  background: #F60
+}
+.dragdealer .disabled {
+  background: #898989
+}
+#social {
+position: fixed;
+  bottom: 5;
+  right: 0;
+  text-decoration: none;
+padding: 3px;
+padding-top:1px;
+  z-index: 800;
+white-space:nowrap;
+overflow:hidden;
+}
+#social a{
+margin-left:10px;
+margin-right:5px;
+color: #000;
+  font-size: 10px;
+  font-family: "MyFont";  
+  font-weight: lighter;
+  text-decoration: none;			
+}
+.likeform input {
+width:100%; 
+min-width:220px;
+margin-top:5px;
+}
+.likeform2 input {
+width: -moz-calc(100% - 13px);
+  width: -webkit-calc(100% - 13px);
+  width: calc(100% - 13px);
+min-width:207px;
+}
+#pngdownloadwrapper:hover{
+cursor:pointer;
+text-decoration:underline;
+}
