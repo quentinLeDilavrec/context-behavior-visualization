@@ -1,4 +1,7 @@
-const vscode = acquireVsCodeApi();
+const vscode = (() => {
+  try { return acquireVsCodeApi() }
+  catch (e) { return { postMessage: (...x) => console.log(...x), dummy: true } }
+})();
 
 d3.sankey = function () {
   let sankey = {},
@@ -528,98 +531,6 @@ function ngrams2graph({ ngrams, symb_stats }) {
   }
 }
 
-const test =
-{
-  nodes: [{
-    name: '/packages/fct.js:1:0',
-    pocc: 90,
-    tocc: 3
-  }, {
-    name: '/packages/fct2.js:1:0',
-    pocc: 90,
-    tocc: 3
-  }, {
-    name: '/packages/fct.js:5:3',
-    pocc: 80,
-    tocc: 3
-  }, {
-    name: '/packages/fct.js:10:0',
-    pocc: 90,
-    tocc: 3
-  }, {
-    name: '/packages/fct.js:20:0',
-    pocc: 20,
-    tocc: 3
-  }],
-  links: [
-    {
-      source: "/packages/fct.js:1:0",
-      target: "/packages/fct.js:5:3",
-      pocc: 1,
-      tocc: 0,
-    },
-    {
-      source: "/packages/fct2.js:1:0",
-      target: "/packages/fct.js:5:3",
-      pocc: 4,
-      tocc: 3,
-    },
-    {
-      source: "/packages/fct.js:5:3",
-      target: "/packages/fct.js:10:0",
-      pocc: 5,
-      tocc: 1,
-    },
-    {
-      source: "/packages/fct.js:10:0",
-      target: "/packages/fct.js:20:0",
-      pocc: 7,
-      tocc: 1,
-    }]
-}
-
-const example =
-{
-  symb_stats: {
-    "a": { pocc: 100, tocc: 3 },
-    "b": { pocc: 50, tocc: 3 },
-    "c": { pocc: 50, tocc: 3 },
-    "d": { pocc: 25, tocc: 3 },
-    "e": { pocc: 50, tocc: 3 },
-    "f": { pocc: 10, tocc: 3 }
-  },
-  ngrams: [
-    { shift: 1, ngram: ["b", "a", "b"], pocc: 4, tocc: 2 },
-    { shift: 2, ngram: ["b", "e", "a"], pocc: 4, tocc: 2 },
-    { shift: 1, ngram: ["e", "a"], pocc: 4, tocc: 2 },
-    { shift: 1, ngram: ["e", "a", "a"], pocc: 4, tocc: 2 },
-    { shift: 1, ngram: ["a", "a", "e"], pocc: 4, tocc: 2 },
-    { shift: 1, ngram: ["a", "f", "a"], pocc: 4, tocc: 2 },
-    { shift: 0, ngram: ["a", "a", "a"], pocc: 4, tocc: 2 },
-    { shift: 0, ngram: ["a"], pocc: 4, tocc: 2 },
-    { shift: 0, ngram: ["a", "b"], pocc: 4, tocc: 2 },
-    { shift: 0, ngram: ["a", "a"], pocc: 4, tocc: 2 },
-    { shift: 2, ngram: ["e", "b", "a"], pocc: 4, tocc: 2 },
-    { shift: 1, ngram: ["c", "a"], pocc: 4, tocc: 2 },
-    { shift: 2, ngram: ["c", "c", "a"], pocc: 4, tocc: 2 },
-    { shift: 0, ngram: ["a", "c", "c"], pocc: 4, tocc: 2 }
-  ]
-}
-
-const real = {
-  symb_stats: {
-    "createRunHook.js:12:0:71:1": { pocc: 2216, tocc: 2514 },
-    "createCurrentHook.js:10:0:25:1": { pocc: 2016, tocc: 2000 },
-    "createRemoveHook.js:17:0:77:1": { pocc: 1500, tocc: 3000 }
-  },
-  ngrams: [
-    { shift: 0, ngram: ["createRunHook.js:12:0:71:1"], pocc: 2216, tocc: 2514 },
-    { shift: 0, ngram: ["createRunHook.js:12:0:71:1", "createCurrentHook.js:10:0:25:1"], pocc: 1108, tocc: 1257 },
-    { shift: 0, ngram: ["createRunHook.js:12:0:71:1", "createRunHook.js:12:0:71:1"], pocc: 1108, tocc: 1257 },
-    { shift: 1, ngram: ["createRemoveHook.js:17:0:77:1", "createRunHook.js:12:0:71:1"], pocc: 1108, tocc: 1257 }
-  ]
-}
-
 function draw_behavior_graph(resources = undefined) {
   if (resources === undefined) {
     if (this.resources === undefined) {
@@ -897,6 +808,10 @@ function settings_setup() {
 
 settings_setup();
 
-vscode.postMessage({
-  command: 'ready'
-})
+if (vscode.dummy === true) {
+  draw_behavior_graph(data)
+} else {
+  vscode.postMessage({
+    command: 'ready'
+  })
+}
